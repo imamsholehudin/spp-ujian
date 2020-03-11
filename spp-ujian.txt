@@ -1,1 +1,3 @@
 aplikasi sumbangan pembangunan pendidikan
+-membuat sistem yang simple
+-aplikasi untuk mambantu siswa
