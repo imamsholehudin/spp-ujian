@@ -1,11 +1,13 @@
 <!DOCTYPE html>
+<html lang="en">
 <?php 
   include("koneksi.php");
-
-  $query = mysqli_query($mysqli,"select * from kelas");
-?>
-<html lang="en">
-
+  $id = $_GET['id'];
+  $query_medik = "select * from rekammedik where id_pasien ='$id'";
+  $result_medik = mysqli_query($mysqli,$query_medik);
+  $query_pasien = "select * from pasien where id = '$id'";
+  $result_pasien = mysqli_query($mysqli, $query_pasien);
+ ?>
 <head>
 
   <meta charset="utf-8">
@@ -38,7 +40,7 @@
         <div class="sidebar-brand-icon rotate-n-15">
           <i class="fas fa-laugh-wink"></i>
         </div>
-        <div class="sidebar-brand-text mx-3">Sistem SPP SMK Puragbaya </div>
+        <div class="sidebar-brand-text mx-3">Klinik Pratama Muhammadiyah</div>
       </a>
 
       <!-- Divider -->
@@ -46,63 +48,19 @@
 
       <!-- Nav Item - Dashboard -->
       <li class="nav-item active">
-        <a class="nav-link" href="#">
+        <a class="nav-link" href="index.php">
           <i class="fas fa-fw fa-tachometer-alt"></i>
-          <span>ADMIN - Nama Admin</span></a>
+          <span>Pasien</span></a>
       </li>
       <!-- Divider -->
       <hr class="sidebar-divider my-0">
 
       <!-- Nav Item - Dashboard -->
       <li class="nav-item active">
-        <a class="nav-link" href="admin-dashboard.php">
+        <a class="nav-link" href="rekam_medik.php">
           <i class="fas fa-fw fa-tachometer-alt"></i>
-          <span>Dashboard</span></a>
+          <span>Rekam Medik</span></a>
       </li>
-      <!-- Nav Item - Dashboard -->
-      <li class="nav-item active">
-        <a class="nav-link" href="admin-spp.php">
-          <i class="fas fa-fw fa-tachometer-alt"></i>
-          <span>Data SPP</span></a>
-      </li>
-      <!-- Nav Item - Dashboard -->
-      <li class="nav-item active">
-        <a class="nav-link" href="admin-kelas.php">
-          <i class="fas fa-fw fa-tachometer-alt"></i>
-          <span>Data Kelas</span></a>
-      </li>
-      <!-- Nav Item - Dashboard -->
-      <li class="nav-item active">
-        <a class="nav-link" href="admin-petugas.php">
-          <i class="fas fa-fw fa-tachometer-alt"></i>
-          <span>Data Petugas</span></a>
-      </li>
-      <!-- Nav Item - Dashboard -->
-      <li class="nav-item active">
-        <a class="nav-link" href="admin-siswa.php">
-          <i class="fas fa-fw fa-tachometer-alt"></i>
-          <span>Data Siswa</span></a>
-      </li>
-      <!-- Nav Item - Dashboard -->
-      <li class="nav-item active">
-        <a class="nav-link" href="admin-pembayaran.php">
-          <i class="fas fa-fw fa-tachometer-alt"></i>
-          <span>Pembayaran SPP</span></a>
-      </li>
-      <!-- Nav Item - Dashboard -->
-      <li class="nav-item active">
-        <a class="nav-link" href="admin-laporan.php">
-          <i class="fas fa-fw fa-tachometer-alt"></i>
-          <span>Laporan SPP</span></a>
-      </li>
-
-      <!-- Nav Item - Dashboard -->
-      <li class="nav-item active">
-        <a class="nav-link" href="logout.php">
-          <i class="fas fa-fw fa-tachometer-alt"></i>
-          <span>Logout</span></a>
-      </li>
-
 
       <!-- Sidebar Toggler (Sidebar) -->
       <div class="text-center d-none d-md-inline">
@@ -146,38 +104,45 @@
               <div class="card shadow mb-4">
                 <!-- Card Header - Dropdown -->
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                  <h6 class="m-0 font-weight-bold text-primary">Data Kelas</h6>
-                                  
+                  <h6 class="m-0 font-weight-bold text-primary">Data Rekam Medik : 
+                    <?php 
+                       while($data = mysqli_fetch_array($result_pasien)){
+                          echo $data['nama']." | ".$data['no_telp'];
+
+                        }
+                     ?>
+
+                  </h6>
+                  
                 </div>
-                
                 <!-- Card Body -->
                 <div class="card-body">
-                  <a href="admin-kelas-tambah.php">
-                    <button type="button" class="btn btn-success">Tambah Data</button><br><br>
-                  </a>
-                  <table class ="table">
+                  <a href="input_data_rekam_medik.php?id=<?php echo $id; ?>">
+                <button type="button" class="btn btn-primary col-xl-1">Tambah Data</button>
+                </a>
+                  <table class="table">
                     <thead class="thead-light">
                       <tr>
-                        <th scope="col">id</th>
-                        <th scope="col">Nama Kelas</th>
-                        <th scope="col">Kompetensi Keahlian</th>
-                        <th scope="col">Aksi</th>
+                        <th scope="col">Id</th>
+                        <th scope="col">Tanggal</th>
+                        <th scope="col">Anamnase</th>
+                        <th scope="col">Advis</th>
                       </tr>
                     </thead>
                     <tbody>
                       <?php 
-                        while($kelas=mysqli_fetch_array($query)){
-                      ?>
+                        while($data_medik= mysqli_fetch_array($result_medik)){
+                       ?>
                       <tr>
-                        <td> <?php echo $kelas['id_kelas'];?> </td>
-                        <td> <?php echo $kelas['nama_kelas'];?> </td>
-                        <td> <?php echo $kelas['kompetensi_keahlian'];?> </td>
-                        <td>
-                          <a href="#"><button type="button" class="btn btn-primary">Edit</button></a>
-                          <a href="#"><button type="button" class="btn btn-danger">Hapus</button></a>
-                        </td>
+                        <th scope="row"><?php echo $data_medik['id']; ?></th>
+                        <td><?php echo $data_medik['tgl']; ?></td>
+                        <td><?php echo $data_medik['keterangan']; ?></td>
+                        <td><?php echo $data_medik['ads']; ?></td>
                       </tr>
-                        <?php } ?>
+                      <?php 
+                        }
+                       ?>
+                      
                     </tbody>
                   </table>
                 </div>

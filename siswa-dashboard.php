@@ -2,7 +2,7 @@
 <?php 
   include("koneksi.php");
 
-  $query = mysqli_query($mysqli,"select * from kelas");
+  $query = mysqli_query($mysqli,"select * from pasien");
 ?>
 <html lang="en">
 
@@ -48,54 +48,18 @@
       <li class="nav-item active">
         <a class="nav-link" href="#">
           <i class="fas fa-fw fa-tachometer-alt"></i>
-          <span>ADMIN - Nama Admin</span></a>
+          <span>SISWA - Nama Siswa</span></a>
       </li>
       <!-- Divider -->
       <hr class="sidebar-divider my-0">
 
       <!-- Nav Item - Dashboard -->
       <li class="nav-item active">
-        <a class="nav-link" href="admin-dashboard.php">
+        <a class="nav-link" href="siswa-dashboard.php">
           <i class="fas fa-fw fa-tachometer-alt"></i>
           <span>Dashboard</span></a>
       </li>
-      <!-- Nav Item - Dashboard -->
-      <li class="nav-item active">
-        <a class="nav-link" href="admin-spp.php">
-          <i class="fas fa-fw fa-tachometer-alt"></i>
-          <span>Data SPP</span></a>
-      </li>
-      <!-- Nav Item - Dashboard -->
-      <li class="nav-item active">
-        <a class="nav-link" href="admin-kelas.php">
-          <i class="fas fa-fw fa-tachometer-alt"></i>
-          <span>Data Kelas</span></a>
-      </li>
-      <!-- Nav Item - Dashboard -->
-      <li class="nav-item active">
-        <a class="nav-link" href="admin-petugas.php">
-          <i class="fas fa-fw fa-tachometer-alt"></i>
-          <span>Data Petugas</span></a>
-      </li>
-      <!-- Nav Item - Dashboard -->
-      <li class="nav-item active">
-        <a class="nav-link" href="admin-siswa.php">
-          <i class="fas fa-fw fa-tachometer-alt"></i>
-          <span>Data Siswa</span></a>
-      </li>
-      <!-- Nav Item - Dashboard -->
-      <li class="nav-item active">
-        <a class="nav-link" href="admin-pembayaran.php">
-          <i class="fas fa-fw fa-tachometer-alt"></i>
-          <span>Pembayaran SPP</span></a>
-      </li>
-      <!-- Nav Item - Dashboard -->
-      <li class="nav-item active">
-        <a class="nav-link" href="admin-laporan.php">
-          <i class="fas fa-fw fa-tachometer-alt"></i>
-          <span>Laporan SPP</span></a>
-      </li>
-
+      
       <!-- Nav Item - Dashboard -->
       <li class="nav-item active">
         <a class="nav-link" href="logout.php">
@@ -146,40 +110,12 @@
               <div class="card shadow mb-4">
                 <!-- Card Header - Dropdown -->
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                  <h6 class="m-0 font-weight-bold text-primary">Data Kelas</h6>
-                                  
+                  <h6 class="m-0 font-weight-bold text-primary">Laporan Pembayaran</h6>
+                  
                 </div>
                 
                 <!-- Card Body -->
                 <div class="card-body">
-                  <a href="admin-kelas-tambah.php">
-                    <button type="button" class="btn btn-success">Tambah Data</button><br><br>
-                  </a>
-                  <table class ="table">
-                    <thead class="thead-light">
-                      <tr>
-                        <th scope="col">id</th>
-                        <th scope="col">Nama Kelas</th>
-                        <th scope="col">Kompetensi Keahlian</th>
-                        <th scope="col">Aksi</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <?php 
-                        while($kelas=mysqli_fetch_array($query)){
-                      ?>
-                      <tr>
-                        <td> <?php echo $kelas['id_kelas'];?> </td>
-                        <td> <?php echo $kelas['nama_kelas'];?> </td>
-                        <td> <?php echo $kelas['kompetensi_keahlian'];?> </td>
-                        <td>
-                          <a href="#"><button type="button" class="btn btn-primary">Edit</button></a>
-                          <a href="#"><button type="button" class="btn btn-danger">Hapus</button></a>
-                        </td>
-                      </tr>
-                        <?php } ?>
-                    </tbody>
-                  </table>
                 </div>
               </div>
             </div>
