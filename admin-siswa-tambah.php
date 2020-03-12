@@ -2,7 +2,7 @@
 <?php 
   include("koneksi.php");
 
-  $query = mysqli_query($mysqli,"select * from kelas");
+  //$query = mysqli_query($mysqli,"select * from kelas");
 ?>
 <html lang="en">
 
@@ -66,33 +66,79 @@
               <div class="card shadow mb-4">
                 <!-- Card Header - Dropdown -->
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                  <h6 class="m-0 font-weight-bold text-primary">Tambah Data Kelas</h6>
+                  <h6 class="m-0 font-weight-bold text-primary">Tambah Data Petugas</h6>
                                   
                 </div>
                 
                 <!-- Card Body -->
                 <div class="card-body">
-                   <form action="proses_tambah_kelas.php" method="POST">
+                   <form action="proses_tambah_siswa.php" method="POST">
                   <table class="table">
 
                     <tbody>
                       <tr>
-                        <th scope="row">Id Kelas</th>
-                        <td><input type="number" class="form-control" placeholder="id Kelas" aria-label="kelas" name="id_kelas" aria-describedby="basic-addon1" required></td>
+                        <th scope="row">NISN</th>
+                        <td><input type="number" class="form-control" placeholder="NISN" aria-label="nisn" name="nisn" aria-describedby="basic-addon1" required></td>
                       </tr>
                       <tr>
-                        <th scope="row">Nama Kelas</th>
-                        <td><input type="text" class="form-control" placeholder="Nama Kelas" aria-label="nama" name="nama_kelas" aria-describedby="basic-addon1" required></td>
+                        <th scope="row">NIS</th>
+                        <td><input type="number" class="form-control" placeholder="NIS" aria-label="nis" name="nis" aria-describedby="basic-addon1" required></td>
                       </tr>
-                      
                       <tr>
-                        <th scope="row">Kompetensi Keahlian</th>
-                        <td><input type="text" class="form-control" placeholder="Keahlian" aria-label="keahlian" name="kompetensi_keahlian" aria-describedby="basic-addon1" required> </td>
+                        <th scope="row">Nama Lengkap</th>
+                        <td><input type="text" class="form-control" placeholder="Nama Lengkap" aria-label="nama" name="nama" aria-describedby="basic-addon1" required> </td>
                       </tr>
-                      
+                      <tr>
+                        <th scope="row">No telp</th>
+                        <td><input type="number" class="form-control" placeholder="No telp" aria-label="alamat" name="no_telp" aria-describedby="basic-addon1" required> </td>
+                      </tr>
+                      <tr>
+                        <th scope="row">Alamat</th>
+                        <td><input type="text" class="form-control" placeholder="Alamat" aria-label="alamat" name="alamat" aria-describedby="basic-addon1" required> </td>
+                      </tr>
+                      <tr>
+                        <th scope="row">Kelas</th>
+                        <td>
+                            <div class="form-group">
+                             
+                              <select class="form-control" id="sel1" name="id_kelas">
+                                <option>pilih kelas</option>
+                                <?php 
+                                  $query = "select * from kelas";
+                                  $sql = mysqli_query($mysqli, $query);
+                                  while($kelas=mysqli_fetch_array($sql)){
+                                ?>
+                                <option value="<?php echo $kelas['id_kelas']; ?>"><?php echo $kelas['id_kelas']."-".$kelas['nama_kelas']; ?></option>
+                                <?php } ?>
+                              </select>
+                            </div>
+                            
+                              
+                        </td>
+                      </tr>
+                      <tr>
+                        <th scope="row">Pilih SPP</th>
+                        <td>
+                            <div class="form-group">
+                             
+                              <select class="form-control" id="sel1" name="id_spp">
+                                <option>pilih spp</option>
+                                <?php 
+                                  $query = "select * from spp";
+                                  $sql = mysqli_query($mysqli, $query);
+                                  while($spp=mysqli_fetch_array($sql)){
+                                ?>
+                                <option value="<?php echo $spp['id_spp']; ?>"><?php echo $spp['id_spp']."-".$spp['nominal']."-".$spp['tahun']; ?></option>
+                                <?php } ?>
+                              </select>
+                            </div>
+                            
+                              
+                        </td>
+                      </tr>
                       <th></th>
                       <td>
-                        <a href="admin-kelas.php">
+                        <a href="admin-petugas.php">
                         <button type="button" class="btn btn-primary">Kembali</button>
                         </a>
                         <a href="#">

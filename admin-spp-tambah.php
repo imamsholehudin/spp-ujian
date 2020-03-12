@@ -2,7 +2,7 @@
 <?php 
   include("koneksi.php");
 
-  $query = mysqli_query($mysqli,"select * from kelas");
+  //$query = mysqli_query($mysqli,"select * from kelas");
 ?>
 <html lang="en">
 
@@ -66,33 +66,32 @@
               <div class="card shadow mb-4">
                 <!-- Card Header - Dropdown -->
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                  <h6 class="m-0 font-weight-bold text-primary">Tambah Data Kelas</h6>
+                  <h6 class="m-0 font-weight-bold text-primary">Tambah Data SPP</h6>
                                   
                 </div>
                 
                 <!-- Card Body -->
                 <div class="card-body">
-                   <form action="proses_tambah_kelas.php" method="POST">
+                   <form action="proses_tambah_spp.php" method="POST">
                   <table class="table">
 
                     <tbody>
                       <tr>
-                        <th scope="row">Id Kelas</th>
-                        <td><input type="number" class="form-control" placeholder="id Kelas" aria-label="kelas" name="id_kelas" aria-describedby="basic-addon1" required></td>
+                        <th scope="row">Id Spp</th>
+                        <td><input type="number" class="form-control" placeholder="id Spp" aria-label="kelas" name="id_spp" aria-describedby="basic-addon1" required></td>
                       </tr>
                       <tr>
-                        <th scope="row">Nama Kelas</th>
-                        <td><input type="text" class="form-control" placeholder="Nama Kelas" aria-label="nama" name="nama_kelas" aria-describedby="basic-addon1" required></td>
+                        <th scope="row">Tahun</th>
+                        <td><input type="text" class="form-control" placeholder="Tahun Masuk" aria-label="nama" name="tahun" aria-describedby="basic-addon1" required></td>
                       </tr>
-                      
                       <tr>
-                        <th scope="row">Kompetensi Keahlian</th>
-                        <td><input type="text" class="form-control" placeholder="Keahlian" aria-label="keahlian" name="kompetensi_keahlian" aria-describedby="basic-addon1" required> </td>
+                        <th scope="row">Nominal</th>
+                        <td><input type="number" class="form-control" placeholder="Rp. Nominal" aria-label="nominal" name="nominal" aria-describedby="basic-addon1" required> </td>
                       </tr>
                       
                       <th></th>
                       <td>
-                        <a href="admin-kelas.php">
+                        <a href="admin-spp.php">
                         <button type="button" class="btn btn-primary">Kembali</button>
                         </a>
                         <a href="#">

@@ -2,7 +2,13 @@
 <?php 
   include("koneksi.php");
 
-  $query = mysqli_query($mysqli,"select * from kelas");
+  $nisn = $_GET['id'];
+  $sqlsiswa = "select * from siswa where nisn = ".$nisn;
+  $siswasqli = mysqli_query($mysqli,$sqlsiswa);
+
+  $sqlspp = "select * from spp where id_spp = (select id_spp from siswa where nisn = $nisn)";
+  $sppsqli = mysqli_query($mysqli,$sqlspp);
+  
 ?>
 <html lang="en">
 
@@ -66,33 +72,94 @@
               <div class="card shadow mb-4">
                 <!-- Card Header - Dropdown -->
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                  <h6 class="m-0 font-weight-bold text-primary">Tambah Data Kelas</h6>
+                  <h6 class="m-0 font-weight-bold text-primary">Tambah Data Petugas</h6>
                                   
                 </div>
                 
                 <!-- Card Body -->
                 <div class="card-body">
-                   <form action="proses_tambah_kelas.php" method="POST">
+                   <form action="proses_tambah_bayar.php" method="POST">
                   <table class="table">
 
                     <tbody>
+                    <?php while($resultsiswa = mysqli_fetch_array($siswasqli)){ ?>
                       <tr>
-                        <th scope="row">Id Kelas</th>
-                        <td><input type="number" class="form-control" placeholder="id Kelas" aria-label="kelas" name="id_kelas" aria-describedby="basic-addon1" required></td>
+                        <th scope="row">NISN</th>
+                        <td><input type="number" class="form-control" value="<?php echo $resultsiswa['nisn'];?>" aria-label="nisn" name="nisn" aria-describedby="basic-addon1" required readonly></td>
                       </tr>
                       <tr>
-                        <th scope="row">Nama Kelas</th>
-                        <td><input type="text" class="form-control" placeholder="Nama Kelas" aria-label="nama" name="nama_kelas" aria-describedby="basic-addon1" required></td>
+                        <th scope="row">Nama Lengkap</th>
+                        <td><input type="text" class="form-control" value="<?php echo $resultsiswa['nama'];?>" aria-label="nama" name="nama" aria-describedby="basic-addon1" readonly required> </td>
                       </tr>
+                      <tr>
+                        <th scope="row">No telp</th>
+                        <td><input type="number" class="form-control" value="<?php echo $resultsiswa['no_telp'];?>" aria-label="alamat" name="no_telp" aria-describedby="basic-addon1" readonly required> </td>
+                      </tr>
+                      <?php } ?>
                       
+                      <?php while($resultspp = mysqli_fetch_array($sppsqli)){ ?>
                       <tr>
-                        <th scope="row">Kompetensi Keahlian</th>
-                        <td><input type="text" class="form-control" placeholder="Keahlian" aria-label="keahlian" name="kompetensi_keahlian" aria-describedby="basic-addon1" required> </td>
+                        <th scope="row">id spp</th>
+                        <td><input type="number" class="form-control" value="<?php echo $resultspp['id_spp'];?>" aria-label="id_spp" name="id_spp" aria-describedby="basic-addon1" readonly required> </td>
                       </tr>
-                      
+                      <tr>
+                        <th scope="row">Nominal</th>
+                        <td><input type="number" class="form-control" value="<?php echo $resultspp['nominal'];?>" aria-label="alamat" name="bayar" aria-describedby="basic-addon1" readonly required> </td>
+                      </tr>
+                      <?php } ?>
+                      tr>
+                        <th scope="row">Petugas</th>
+                        <td><input type="number" class="form-control" value="42019" aria-label="alamat" name="id_petugas" aria-describedby="basic-addon1" readonly required> </td>
+                      </tr>
+                      <tr>
+                        <th scope="row">Pilih Bulan</th>
+                        <td>
+                            <div class="form-group">
+                             
+                              <select class="form-control" id="sel1" name="bulan_dibayar">
+                                <option>pilih bulan</option>
+
+                                <option value="januari">Januari</option>
+                                <option value="februari">Februari</option>
+                                <option value="maret">Maret</option>
+                                <option value="april">April</option>
+                                <option value="mei">Mei</option>
+                                <option value="juni">Juni</option>
+                                <option value="juli">Juli</option>
+                                <option value="agustus">Agustus</option>
+                                <option value="september">September</option>
+                                <option value="oktober">Oktober</option>
+                                <option value="november">November</option>
+                                <option value="desember">Desember</option>
+
+                                
+                              </select>
+                            </div>
+                            
+                              
+                        </td>
+                      </tr>
+                       <tr>
+                        <th scope="row">Pilih Tahun</th>
+                        <td>
+                            <div class="form-group">
+                             
+                              <select class="form-control" id="sel1" name="tahun_dibayar">
+                                <option>pilih tahun</option>
+                                <?php for ($i=2018; $i <2040 ; $i++) { ?>
+                                  <option value="<?php echo $i; ?>"><?php echo $i; ?></option>
+                                  <?php } ?>
+                                
+                                
+                              </select>
+                            </div>
+                            
+                              
+                        </td>
+                      </tr>
                       <th></th>
                       <td>
-                        <a href="admin-kelas.php">
+                        <a href="admin-siswa.php">
                         <button type="button" class="btn btn-primary">Kembali</button>
                         </a>
                         <a href="#">

@@ -153,7 +153,7 @@
                 <!-- Card Body -->
                 <div class="card-body">
 
-                <a href="#">
+                <a href="admin-petugas-tambah.php">
                     <button type="button" class="btn btn-success">Tambah Data</button><br><br>
                   </a>
                   <table class ="table">

@@ -2,7 +2,7 @@
 <?php 
   include("koneksi.php");
 
-  $query = mysqli_query($mysqli,"select * from kelas");
+  //$query = mysqli_query($mysqli,"select * from kelas");
 ?>
 <html lang="en">
 
@@ -66,33 +66,41 @@
               <div class="card shadow mb-4">
                 <!-- Card Header - Dropdown -->
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                  <h6 class="m-0 font-weight-bold text-primary">Tambah Data Kelas</h6>
+                  <h6 class="m-0 font-weight-bold text-primary">Tambah Data Petugas</h6>
                                   
                 </div>
                 
                 <!-- Card Body -->
                 <div class="card-body">
-                   <form action="proses_tambah_kelas.php" method="POST">
+                   <form action="proses_tambah_petugas.php" method="POST">
                   <table class="table">
 
                     <tbody>
                       <tr>
-                        <th scope="row">Id Kelas</th>
-                        <td><input type="number" class="form-control" placeholder="id Kelas" aria-label="kelas" name="id_kelas" aria-describedby="basic-addon1" required></td>
+                        <th scope="row">Id Petugas</th>
+                        <td><input type="number" class="form-control" placeholder="id Petugas" aria-label="kelas" name="id_petugas" aria-describedby="basic-addon1" required></td>
                       </tr>
                       <tr>
-                        <th scope="row">Nama Kelas</th>
-                        <td><input type="text" class="form-control" placeholder="Nama Kelas" aria-label="nama" name="nama_kelas" aria-describedby="basic-addon1" required></td>
+                        <th scope="row">Nama Petugas</th>
+                        <td><input type="text" class="form-control" placeholder="Nama Petugas" aria-label="nama" name="nama_petugas" aria-describedby="basic-addon1" required></td>
                       </tr>
-                      
                       <tr>
-                        <th scope="row">Kompetensi Keahlian</th>
-                        <td><input type="text" class="form-control" placeholder="Keahlian" aria-label="keahlian" name="kompetensi_keahlian" aria-describedby="basic-addon1" required> </td>
+                        <th scope="row">Username</th>
+                        <td><input type="text" class="form-control" placeholder="Username" aria-label="username" name="username" aria-describedby="basic-addon1" required> </td>
                       </tr>
-                      
+                      <tr>
+                        <th scope="row">Password</th>
+                        <td><input type="password" class="form-control" placeholder="Password" aria-label="password" name="password" aria-describedby="basic-addon1" required> </td>
+                      </tr><tr>
+                        <th scope="row">Level User</th>
+                        <td>
+                           <input type="radio" name="level" value="admin"> Admin <br>
+                           <input type="radio" name="level" value="petugas" checked="checked">Petugas 
+                        </td>
+                      </tr>
                       <th></th>
                       <td>
-                        <a href="admin-kelas.php">
+                        <a href="admin-petugas.php">
                         <button type="button" class="btn btn-primary">Kembali</button>
                         </a>
                         <a href="#">

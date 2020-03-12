@@ -151,7 +151,7 @@
                 
                 <!-- Card Body -->
                 <div class="card-body">
-                <a href="#">
+                <a href="admin-siswa-tambah.php">
                     <button type="button" class="btn btn-success">Tambah Data</button><br><br>
                   </a>
                   <table class ="table">
@@ -178,7 +178,7 @@
                         <td> <?php echo $siswa['alamat'];?> </td>
                         <td> <?php echo $siswa['no_telp'];?> </td>
                         <td>
-                          <a href="#"><button type="button" class="btn btn-warning">Bayar SPP</button></a>
+                          <a href="admin-bayar-tambah.php?id=<?php echo $siswa['nisn']; ?>"><button type="button" class="btn btn-warning">Bayar SPP</button></a>
                           <a href="#"><button type="button" class="btn btn-info">Detail</button></a>
                           <a href="#"><button type="button" class="btn btn-primary">Edit</button></a>
                           <a href="#"><button type="button" class="btn btn-danger">Hapus</button></a>
