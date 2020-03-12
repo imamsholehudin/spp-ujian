@@ -179,9 +179,9 @@
                         <td> <?php echo $siswa['no_telp'];?> </td>
                         <td>
                           <a href="admin-bayar-tambah.php?id=<?php echo $siswa['nisn']; ?>"><button type="button" class="btn btn-warning">Bayar SPP</button></a>
-                          <a href="#"><button type="button" class="btn btn-info">Detail</button></a>
-                          <a href="#"><button type="button" class="btn btn-primary">Edit</button></a>
-                          <a href="#"><button type="button" class="btn btn-danger">Hapus</button></a>
+                          <a href="admin-siswa-detail.php?id=<?php echo $siswa['nisn']; ?>"><button type="button" class="btn btn-info">Detail</button></a>
+                          <a href="admin-siswa-edit.php?id=<?php echo $siswa['nisn']; ?>"><button type="button" class="btn btn-primary">Edit</button></a>
+                          <a href="admin_siswa_hapus.php?id=<?php echo $siswa['nisn'];?>"><button type="button" class="btn btn-danger">Hapus</button></a>
                         </td>
                       </tr>
                         <?php } ?>

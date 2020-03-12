@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <?php 
   include("koneksi.php");
-
-  //$query = mysqli_query($mysqli,"select * from kelas");
+  $id= $_GET['id'];
+  $query = mysqli_query($mysqli,"select * from siswa where nisn=".$id);
 ?>
 <html lang="en">
 
@@ -66,35 +66,36 @@
               <div class="card shadow mb-4">
                 <!-- Card Header - Dropdown -->
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                  <h6 class="m-0 font-weight-bold text-primary">Tambah Data Siswa</h6>
+                  <h6 class="m-0 font-weight-bold text-primary">Tambah Data Petugas</h6>
                                   
                 </div>
                 
                 <!-- Card Body -->
                 <div class="card-body">
-                   <form action="proses_tambah_siswa.php" method="POST">
+                   <form action="proses_edit_siswa.php" method="POST">
                   <table class="table">
-
+                  <?php while ($data=mysqli_fetch_array($query)) {
+                    ?>
                     <tbody>
                       <tr>
                         <th scope="row">NISN</th>
-                        <td><input type="number" class="form-control" placeholder="NISN" aria-label="nisn" name="nisn" aria-describedby="basic-addon1" required></td>
+                        <td><input type="number" value="<?php echo $data['nisn']; ?>" readonly class="form-control" placeholder="NISN" aria-label="nisn" name="nisn" aria-describedby="basic-addon1" required></td>
                       </tr>
                       <tr>
                         <th scope="row">NIS</th>
-                        <td><input type="number" class="form-control" placeholder="NIS" aria-label="nis" name="nis" aria-describedby="basic-addon1" required></td>
+                        <td><input type="number" value="<?php echo $data['nis']; ?>" class="form-control" placeholder="NIS" aria-label="nis" name="nis" aria-describedby="basic-addon1" required></td>
                       </tr>
                       <tr>
                         <th scope="row">Nama Lengkap</th>
-                        <td><input type="text" class="form-control" placeholder="Nama Lengkap" aria-label="nama" name="nama" aria-describedby="basic-addon1" required> </td>
+                        <td><input type="text" value="<?php echo $data['nama']; ?>" class="form-control" placeholder="Nama Lengkap" aria-label="nama" name="nama" aria-describedby="basic-addon1" required> </td>
                       </tr>
                       <tr>
                         <th scope="row">No telp</th>
-                        <td><input type="number" class="form-control" placeholder="No telp" aria-label="alamat" name="no_telp" aria-describedby="basic-addon1" required> </td>
+                        <td><input type="number" value="<?php echo $data['no_telp']; ?>" class="form-control" placeholder="No telp" aria-label="alamat" name="no_telp" aria-describedby="basic-addon1" required> </td>
                       </tr>
                       <tr>
                         <th scope="row">Alamat</th>
-                        <td><input type="text" class="form-control" placeholder="Alamat" aria-label="alamat" name="alamat" aria-describedby="basic-addon1" required> </td>
+                        <td><input type="text" value="<?php echo $data['alamat']; ?>" class="form-control" placeholder="Alamat" aria-label="alamat" name="alamat" aria-describedby="basic-addon1" required> </td>
                       </tr>
                       <tr>
                         <th scope="row">Kelas</th>
@@ -102,7 +103,7 @@
                             <div class="form-group">
                              
                               <select class="form-control" id="sel1" name="id_kelas">
-                                <option>pilih kelas</option>
+                                <option value="<?php echo $data['id_kelas']; ?>"><?php echo $data['id_kelas']; ?></option>
                                 <?php 
                                   $query = "select * from kelas";
                                   $sql = mysqli_query($mysqli, $query);
@@ -122,7 +123,7 @@
                             <div class="form-group">
                              
                               <select class="form-control" id="sel1" name="id_spp">
-                                <option>pilih spp</option>
+                                <option value="<?php echo $data['id_spp']; ?>"><?php echo $data['id_spp']; ?></option>
                                 <?php 
                                   $query = "select * from spp";
                                   $sql = mysqli_query($mysqli, $query);
@@ -133,7 +134,7 @@
                               </select>
                             </div>
                             
-                              
+                             <?php } ?> 
                         </td>
                       </tr>
                       <th></th>

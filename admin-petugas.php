@@ -179,7 +179,7 @@
                         <td> <?php echo $petugas['level'];?> </td>
                         <td>
                           <a href="#"><button type="button" class="btn btn-primary">Edit</button></a>
-                          <a href="#"><button type="button" class="btn btn-danger">Hapus</button></a>
+                          <a href="admin_petugas_hapus.php?id=<?php echo $petugas['id_petugas'];?>"><button type="button" class="btn btn-danger">Hapus</button></a>
                         </td>
                       </tr>
                         <?php } ?>

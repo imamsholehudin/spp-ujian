@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <?php 
   include("koneksi.php");
-
-  $query = mysqli_query($mysqli,"select * from spp");
+  $id = $_GET['id'];
+  $query = mysqli_query($mysqli,"select * from siswa where nisn=".$id);
 ?>
 <html lang="en">
 
@@ -30,87 +30,7 @@
   <!-- Page Wrapper -->
   <div id="wrapper">
 
-    <!-- Sidebar -->
-    <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
-
-      <!-- Sidebar - Brand -->
-      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
-        <div class="sidebar-brand-icon rotate-n-15">
-          <i class="fas fa-laugh-wink"></i>
-        </div>
-        <div class="sidebar-brand-text mx-3">Sistem SPP SMK Puragbaya </div>
-      </a>
-
-      <!-- Divider -->
-      <hr class="sidebar-divider my-0">
-
-      <!-- Nav Item - Dashboard -->
-      <li class="nav-item active">
-        <a class="nav-link" href="#">
-          <i class="fas fa-fw fa-tachometer-alt"></i>
-          <span>ADMIN - Nama Admin</span></a>
-      </li>
-      <!-- Divider -->
-      <hr class="sidebar-divider my-0">
-
-      <!-- Nav Item - Dashboard -->
-      <li class="nav-item active">
-        <a class="nav-link" href="admin-dashboard.php">
-          <i class="fas fa-fw fa-tachometer-alt"></i>
-          <span>Dashboard</span></a>
-      </li>
-      <!-- Nav Item - Dashboard -->
-      <li class="nav-item active">
-        <a class="nav-link" href="admin-spp.php">
-          <i class="fas fa-fw fa-tachometer-alt"></i>
-          <span>Data SPP</span></a>
-      </li>
-      <!-- Nav Item - Dashboard -->
-      <li class="nav-item active">
-        <a class="nav-link" href="admin-kelas.php">
-          <i class="fas fa-fw fa-tachometer-alt"></i>
-          <span>Data Kelas</span></a>
-      </li>
-      <!-- Nav Item - Dashboard -->
-      <li class="nav-item active">
-        <a class="nav-link" href="admin-petugas.php">
-          <i class="fas fa-fw fa-tachometer-alt"></i>
-          <span>Data Petugas</span></a>
-      </li>
-      <!-- Nav Item - Dashboard -->
-      <li class="nav-item active">
-        <a class="nav-link" href="admin-siswa.php">
-          <i class="fas fa-fw fa-tachometer-alt"></i>
-          <span>Data Siswa</span></a>
-      </li>
-      <!-- Nav Item - Dashboard -->
-      <li class="nav-item active">
-        <a class="nav-link" href="admin-pembayaran.php">
-          <i class="fas fa-fw fa-tachometer-alt"></i>
-          <span>Pembayaran SPP</span></a>
-      </li>
-      <!-- Nav Item - Dashboard -->
-      <li class="nav-item active">
-        <a class="nav-link" href="admin-laporan.php">
-          <i class="fas fa-fw fa-tachometer-alt"></i>
-          <span>Laporan SPP</span></a>
-      </li>
-
-      <!-- Nav Item - Dashboard -->
-      <li class="nav-item active">
-        <a class="nav-link" href="logout.php">
-          <i class="fas fa-fw fa-tachometer-alt"></i>
-          <span>Logout</span></a>
-      </li>
-
-
-      <!-- Sidebar Toggler (Sidebar) -->
-      <div class="text-center d-none d-md-inline">
-        <button class="rounded-circle border-0" id="sidebarToggle"></button>
-      </div>
-
-    </ul>
-    <!-- End of Sidebar -->
+    
 
     <!-- Content Wrapper -->
     <div id="content-wrapper" class="d-flex flex-column">
@@ -146,41 +66,87 @@
               <div class="card shadow mb-4">
                 <!-- Card Header - Dropdown -->
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                  <h6 class="m-0 font-weight-bold text-primary">Sumbangan Pengembangan Pendidikan</h6>
-                  
+                  <h6 class="m-0 font-weight-bold text-primary">TDetail Data Siswa</h6>
+                                  
                 </div>
                 
                 <!-- Card Body -->
                 <div class="card-body">
+                   <form action="proses_tambah_siswa.php" method="POST">
+                  <table class="table">
 
-                <a href="admin-spp-tambah.php">
-                    <button type="button" class="btn btn-success">Tambah Data</button><br><br>
-                  </a>
-                  <table class ="table">
-                    <thead class="thead-light">
-                      <tr>
-                        <th scope="col">id</th>
-                        <th scope="col">Tahun</th>
-                        <th scope="col">Nominal</th>                    
-                        <th scope="col">Aksi</th>
-                      </tr>
-                    </thead>
                     <tbody>
-                      <?php 
-                        while($spp=mysqli_fetch_array($query)){
+                    <?php 
+                      while($data=mysqli_fetch_array($query)){
                       ?>
                       <tr>
-                        <td> <?php echo $spp['id_spp'];?> </td>
-                        <td> <?php echo $spp['tahun'];?> </td>
-                        <td> <?php echo $spp['nominal'];?> </td>
+                        <th scope="row">NISN</th>
+                        <td><input type="number" value="<?php echo $data['nisn']; ?>" readonly class="form-control" placeholder="NISN" aria-label="nisn" name="nisn" aria-describedby="basic-addon1" required></td>
+                      </tr>
+                      <tr>
+                        <th scope="row">NIS</th>
+                        <td><input type="number" value="<?php echo $data['nis']; ?>" class="form-control" placeholder="NIS" aria-label="nis" name="nis" aria-describedby="basic-addon1" required readonly></td>
+                      </tr>
+                      <tr>
+                        <th scope="row">Nama Lengkap</th>
+                        <td><input type="text" value="<?php echo $data['nama']; ?>" class="form-control" placeholder="Nama Lengkap" aria-label="nama" name="nama" aria-describedby="basic-addon1" required readonly> </td>
+                      </tr>
+                      <tr>
+                        <th scope="row">No telp</th>
+                        <td><input type="number" value="<?php echo $data['no_telp']; ?>" class="form-control" placeholder="No telp" aria-label="alamat" name="no_telp" aria-describedby="basic-addon1" required readonly> </td>
+                      </tr>
+                      <tr>
+                        <th scope="row">Alamat</th>
+                        <td><input type="text"  value="<?php echo $data['alamat']; ?>" class="form-control" placeholder="Alamat" aria-label="alamat" name="alamat" aria-describedby="basic-addon1" required readonly> </td>
+                      </tr>
+                      <tr>
+                        <th scope="row">Kelas</th>
                         <td>
-                          <a href="admin-spp-edit.php?id=<?php echo $spp['id_spp'];?>"><button type="button" class="btn btn-primary">Edit</button></a>
-                          <a href="admin_spp_hapus.php?id=<?php echo $spp['id_spp'];?>"><button type="button" class="btn btn-danger">Hapus</button></a>
+                            <div class="form-group">
+                             
+                              
+                                <?php 
+                                  $query = "select * from kelas where id_kelas=".$data['id_kelas'];
+                                  $sql = mysqli_query($mysqli, $query);
+                                  while($kelas=mysqli_fetch_array($sql)){
+                                ?>
+                                <input type="text"  value="<?php echo $data['id_kelas'].'-'.$kelas['nama_kelas'] ; ?>" class="form-control" placeholder="Alamat" aria-label="alamat" name="alamat" aria-describedby="basic-addon1" required readonly> 
+                                <?php  }?>
+                            </div>
+                            
+                              
                         </td>
                       </tr>
-                        <?php } ?>
+                      <tr>
+                        <th scope="row">SPP</th>
+                        <td>
+                            <div class="form-group">
+                             
+                              
+                                <?php 
+                                  $query = "select * from spp where id_spp=".$data['id_spp'];
+                                  $sql = mysqli_query($mysqli, $query);
+                                  while($spp=mysqli_fetch_array($sql)){
+                                ?>
+                                <input type="text"  value="<?php echo $data['id_spp'].'-'.$spp['nominal'].'-'.$spp['tahun'] ; ?>" class="form-control" placeholder="Alamat" aria-label="alamat" name="alamat" aria-describedby="basic-addon1" required readonly> 
+                                <?php  }?>
+                            </div>
+                            
+                              
+                        </td>
+                      </tr>
+                      <?php } ?>
+                      <th></th>
+                      <td>
+                        <a href="admin-petugas.php">
+                        <button type="button" class="btn btn-primary">Kembali</button>
+                        </a>
+                        
+                    </td>
                     </tbody>
                   </table>
+                  </form>
+
                 </div>
               </div>
             </div>
