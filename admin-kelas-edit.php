@@ -1,6 +1,10 @@
 <!DOCTYPE html>
 <?php 
   include("koneksi.php");
+  session_start();
+  if(($_SESSION['status']!="login") && ($_SESSION['level']!="admin")){
+    header("location:login.php?pesan=belum_login");
+  }
   $id = $_GET['id'];
   $query = mysqli_query($mysqli,"select * from kelas where id_kelas=".$id);
 ?>

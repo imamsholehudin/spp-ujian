@@ -1,12 +1,13 @@
 <!DOCTYPE html>
 <?php 
   include("koneksi.php");
-  session_start();
-  if(($_SESSION['status']!="login") && ($_SESSION['level']!="admin")){
-    header("location:login.php?pesan=belum_login");
-  }
 
-  //$query = mysqli_query($mysqli,"select * from kelas");
+  session_start();
+  if(($_SESSION['status']!="login") && (!$_SESSION['nisn'])){
+    header("location:login-siswa.php?pesan=belum_login");
+  }
+  $id = $_SESSION['nisn'];
+  $query = mysqli_query($mysqli,"select * from siswa where nisn=".$id);
 ?>
 <html lang="en">
 
@@ -70,46 +71,85 @@
               <div class="card shadow mb-4">
                 <!-- Card Header - Dropdown -->
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                  <h6 class="m-0 font-weight-bold text-primary">Tambah Data Petugas</h6>
+                  <h6 class="m-0 font-weight-bold text-primary">TDetail Data Siswa</h6>
                                   
                 </div>
                 
                 <!-- Card Body -->
                 <div class="card-body">
-                   <form action="proses_tambah_petugas.php" method="POST">
+                   <form action="proses_tambah_siswa.php" method="POST">
                   <table class="table">
 
                     <tbody>
+                    <?php 
+                      while($data=mysqli_fetch_array($query)){
+                      ?>
                       <tr>
-                        <th scope="row">Id Petugas</th>
-                        <td><input type="number" class="form-control" placeholder="id Petugas" aria-label="kelas" name="id_petugas" aria-describedby="basic-addon1" required></td>
+                        <th scope="row">NISN</th>
+                        <td><input type="number" value="<?php echo $data['nisn']; ?>" readonly class="form-control" placeholder="NISN" aria-label="nisn" name="nisn" aria-describedby="basic-addon1" required></td>
                       </tr>
                       <tr>
-                        <th scope="row">Nama Petugas</th>
-                        <td><input type="text" class="form-control" placeholder="Nama Petugas" aria-label="nama" name="nama_petugas" aria-describedby="basic-addon1" required></td>
+                        <th scope="row">NIS</th>
+                        <td><input type="number" value="<?php echo $data['nis']; ?>" class="form-control" placeholder="NIS" aria-label="nis" name="nis" aria-describedby="basic-addon1" required readonly></td>
                       </tr>
                       <tr>
-                        <th scope="row">Username</th>
-                        <td><input type="text" class="form-control" placeholder="Username" aria-label="username" name="username" aria-describedby="basic-addon1" required> </td>
+                        <th scope="row">Nama Lengkap</th>
+                        <td><input type="text" value="<?php echo $data['nama']; ?>" class="form-control" placeholder="Nama Lengkap" aria-label="nama" name="nama" aria-describedby="basic-addon1" required readonly> </td>
                       </tr>
                       <tr>
-                        <th scope="row">Password</th>
-                        <td><input type="password" class="form-control" placeholder="Password" aria-label="password" name="password" aria-describedby="basic-addon1" required> </td>
-                      </tr><tr>
-                        <th scope="row">Level User</th>
+                        <th scope="row">No telp</th>
+                        <td><input type="number" value="<?php echo $data['no_telp']; ?>" class="form-control" placeholder="No telp" aria-label="alamat" name="no_telp" aria-describedby="basic-addon1" required readonly> </td>
+                      </tr>
+                      <tr>
+                        <th scope="row">Alamat</th>
+                        <td><input type="text"  value="<?php echo $data['alamat']; ?>" class="form-control" placeholder="Alamat" aria-label="alamat" name="alamat" aria-describedby="basic-addon1" required readonly> </td>
+                      </tr>
+                      <tr>
+                        <th scope="row">Kelas</th>
                         <td>
-                           <input type="radio" name="level" value="admin"> Admin <br>
-                           <input type="radio" name="level" value="petugas" checked="checked">Petugas 
+                            <div class="form-group">
+                             
+                              
+                                <?php 
+                                  $query = "select * from kelas where id_kelas=".$data['id_kelas'];
+                                  $sql = mysqli_query($mysqli, $query);
+                                  while($kelas=mysqli_fetch_array($sql)){
+                                ?>
+                                <input type="text"  value="<?php echo $data['id_kelas'].'-'.$kelas['nama_kelas'] ; ?>" class="form-control" placeholder="Alamat" aria-label="alamat" name="alamat" aria-describedby="basic-addon1" required readonly> 
+                                <?php  }?>
+                            </div>
+                            
+                              
                         </td>
                       </tr>
+                      <tr>
+                        <th scope="row">SPP</th>
+                        <td>
+                            <div class="form-group">
+                             
+                              
+                                <?php 
+                                  $query = "select * from spp where id_spp=".$data['id_spp'];
+                                  $sql = mysqli_query($mysqli, $query);
+                                  while($spp=mysqli_fetch_array($sql)){
+                                ?>
+                                <input type="text"  value="<?php echo $data['id_spp'].'-'.$spp['nominal'].'-'.$spp['tahun'] ; ?>" class="form-control" placeholder="Alamat" aria-label="alamat" name="alamat" aria-describedby="basic-addon1" required readonly> 
+                                <?php  }?>
+                            </div>
+                            
+                              
+                        </td>
+                      </tr>
+                      <?php } ?>
                       <th></th>
                       <td>
-                        <a href="admin-petugas.php">
-                        <button type="button" class="btn btn-primary">Kembali</button>
-                        </a>
                         <a href="#">
-                        <input type="submit" class="btn btn-primary" value="Simpan">
+                        <button type="button" class="btn btn-primary">Cetak</button>
                         </a>
+                        <a href="logout.php">
+                        <button type="button" class="btn btn-primary">Logout</button>
+                        </a>
+                        
                     </td>
                     </tbody>
                   </table>
@@ -160,7 +200,7 @@
         <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
         <div class="modal-footer">
           <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-          <a class="btn btn-primary" href="login.html">Logout</a>
+          <a class="btn btn-primary" href="logout.php">Logout</a>
         </div>
       </div>
     </div>

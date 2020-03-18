@@ -1,6 +1,10 @@
 <!DOCTYPE html>
 <?php 
   include("koneksi.php");
+  session_start();
+  if(($_SESSION['status']!="login") && ($_SESSION['level']!="admin")){
+    header("location:login.php?pesan=belum_login");
+  }
 
   $nisn = $_GET['id'];
   $sqlsiswa = "select * from siswa where nisn = ".$nisn;

@@ -3,6 +3,10 @@
   include("koneksi.php");
 
   //$query = mysqli_query($mysqli,"select * from pasien");
+  session_start();
+  if(($_SESSION['status']!="login") && ($_SESSION['level']!="admin")){
+    header("location:login.php?pesan=belum_login");
+  }
 ?>
 <html lang="en">
 

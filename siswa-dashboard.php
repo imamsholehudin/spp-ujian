@@ -1,6 +1,10 @@
 <!DOCTYPE html>
 <?php 
   include("koneksi.php");
+  session_start();
+  if(($_SESSION['status']!="login") && (!$_SESSION['nisn'])){
+    header("location:login.php?pesan=belum_login");
+  }
 
   $query = mysqli_query($mysqli,"select * from pasien");
 ?>

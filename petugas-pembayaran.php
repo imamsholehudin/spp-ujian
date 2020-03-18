@@ -1,8 +1,12 @@
 <!DOCTYPE html>
 <?php 
   include("koneksi.php");
+  session_start();
+  if(($_SESSION['status']!="login") && ($_SESSION['level']!="petugas")){
+    header("location:login.php?pesan=belum_login");
+  }
 
-  $query = mysqli_query($mysqli,"select * from pasien");
+  $query = mysqli_query($mysqli,"select * from siswa");
 ?>
 <html lang="en">
 
@@ -129,6 +133,36 @@
                 
                 <!-- Card Body -->
                 <div class="card-body">
+                <table class ="table">
+                    <thead class="thead-light">
+                      <tr>
+                        <th scope="col">NISN</th>
+                        <th scope="col">NIS</th>
+                        <th scope="col">Nama Lengkap</th>
+                        <th scope="col">Kelas</th>
+                        <th scope="col">Alamat</th>
+                        <th scope="col">No Telp</th>                       
+                        <th scope="col">Aksi</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <?php 
+                        while($siswa=mysqli_fetch_array($query)){
+                      ?>
+                      <tr>
+                        <td> <?php echo $siswa['nisn'];?> </td>
+                        <td> <?php echo $siswa['nis'];?> </td>
+                        <td> <?php echo $siswa['nama'];?> </td>
+                        <td> <?php echo $siswa['id_kelas'];?> </td>
+                        <td> <?php echo $siswa['alamat'];?> </td>
+                        <td> <?php echo $siswa['no_telp'];?> </td>
+                        <td>
+                          <a href="petugas-bayar-tambah.php?id=<?php echo $siswa['nisn']; ?>"><button type="button" class="btn btn-warning">Bayar SPP</button></a>
+                        </td>
+                      </tr>
+                        <?php } ?>
+                    </tbody>
+                  </table>
                 </div>
               </div>
             </div>
